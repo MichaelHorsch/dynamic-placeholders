@@ -5,34 +5,33 @@ using System.Text.RegularExpressions;
 
 namespace DynamicPlaceholders.Pipelines.GetChromeData
 {
-	public class GetDynamicPlaceholderChromeData : GetPlaceholderChromeData
-	{
-		public override void Process(GetChromeDataArgs args)
-		{
-			Assert.ArgumentNotNull(args, "args");
-			Assert.IsNotNull(args.ChromeData, "Chrome Data");
+    public class GetDynamicPlaceholderChromeData : GetPlaceholderChromeData
+    {
+        public override void Process(GetChromeDataArgs args)
+        {
+            Assert.ArgumentNotNull(args, "args");
+            Assert.IsNotNull(args.ChromeData, "Chrome Data");
 
-			if (string.Equals("placeholder", args.ChromeType, StringComparison.OrdinalIgnoreCase))
-			{
-				var placeholderKey = args.CustomData["placeHolderKey"] as string;
-				var regex = new Regex(DynamicPlaceholders.PlaceholderKeyRegex.DynamicKeyRegex);
-				var match = regex.Match(placeholderKey);
+            if (string.Equals("placeholder", args.ChromeType, StringComparison.OrdinalIgnoreCase))
+            {
+                var placeholderKey = args.CustomData["placeHolderKey"] as string;
+                var regex = new Regex(DynamicPlaceholders.PlaceholderKeyRegex.DynamicKeyRegex);
+                var match = regex.Match(placeholderKey);
 
-				if (match.Success && match.Groups.Count > 0)
-				{
-					var newPlaceholderKey = match.Groups[1].Value;
+                if (match.Success && match.Groups.Count > 0)
+                {
+                    var newPlaceholderKey = match.Groups[1].Value;
+                    args.CustomData["placeHolderKey"] = newPlaceholderKey;
 
-					args.CustomData["placeHolderKey"] = newPlaceholderKey;
+                    base.Process(args);
 
-					base.Process(args);
-
-					args.CustomData["placeHolderKey"] = placeholderKey;
-				}
-				else
-				{
-					base.Process(args);
-				}
-			}
-		}
-	}
+                    args.CustomData["placeHolderKey"] = placeholderKey;
+                }
+                else
+                {
+                    base.Process(args);
+                }
+            }
+        }
+    }
 }

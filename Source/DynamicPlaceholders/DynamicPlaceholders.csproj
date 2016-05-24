@@ -36,6 +36,10 @@
     <Reference Include="Sitecore.Kernel">
       <HintPath>..\..\_Libraries\Sitecore.Kernel.dll</HintPath>
     </Reference>
+    <Reference Include="Sitecore.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Sitecore.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -46,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\SitecoreHelperExtensions.cs" />
     <Compile Include="PlaceholdersContext.cs" />
     <Compile Include="Events\DynamicPlaceholder.cs" />
     <Compile Include="Pipelines\ExecutePageEditorAction\DynamicReplaceRendering.cs" />
